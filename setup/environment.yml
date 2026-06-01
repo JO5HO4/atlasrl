@@ -1,0 +1,22 @@
+# environment.yml
+name: atlasrl
+channels:
+  - conda-forge
+  - pytorch
+dependencies:
+  - python=3.11
+  - pip
+  - numpy
+  - pandas
+  - scipy
+  - matplotlib
+  - pyyaml
+  - jinja2
+  - tqdm
+  - tensorboard
+  - pytorch
+  - pip:
+      - gymnasium
+      - "stable-baselines3[extra]"
+      - optuna
+      - rich
