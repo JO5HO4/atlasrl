@@ -316,7 +316,7 @@ def run_trex_action_capture(
 def run_trex_n_parallel_regions(
     config: str | Path,
     log_dir: str | Path = "trex_logs",
-    workers: int = 2,
+    workers: int | None = None,
     regions_per_job: int = 1,
     regions: list[str] | None = None,
 ) -> None:
@@ -325,6 +325,8 @@ def run_trex_n_parallel_regions(
         raise RuntimeError(f"No Region blocks found in {config}")
 
     jobs = chunked(all_regions, max(1, regions_per_job))
+    if workers is None or workers <= 0:
+        workers = len(jobs)
     workers = max(1, min(workers, len(jobs)))
 
     print(
@@ -365,8 +367,8 @@ def run_trex_sequence(
     actions: list[str],
     config: str | Path,
     log_dir: str | Path = "trex_logs",
-    parallel_regions: bool = False,
-    region_workers: int = 2,
+    parallel_regions: bool = True,
+    region_workers: int | None = None,
     regions_per_job: int = 1,
 ) -> None:
     read_from = read_config_readfrom(config)
@@ -421,14 +423,23 @@ def main() -> None:
     parser.add_argument(
         "--parallel-regions",
         action="store_true",
-        help='Split action "n" into parallel jobs using TRExFitter Regions="..."',
+        dest="parallel_regions",
+        default=True,
+        help='Split action "n" into parallel jobs using TRExFitter Regions="..."; enabled by default.',
+    )
+
+    parser.add_argument(
+        "--no-parallel-regions",
+        action="store_false",
+        dest="parallel_regions",
+        help='Run action "n" as one serial TRExFitter job instead of splitting by region.',
     )
 
     parser.add_argument(
         "--region-workers",
         type=int,
-        default=2,
-        help="Maximum number of parallel region jobs for action n.",
+        default=0,
+        help="Maximum number of parallel region jobs for action n. Use 0 to match the number of region jobs.",
     )
 
     parser.add_argument(

@@ -21,7 +21,7 @@ def main() -> None:
     parser.add_argument("config")
     parser.add_argument("--project-dir", default=".")
     parser.add_argument("--log-dir", default="trex_logs")
-    args = parser.parse_args()
+    args, _ = parser.parse_known_args()
 
     config_path = Path(args.config)
     log_dir = Path(args.log_dir)
