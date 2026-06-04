@@ -10,6 +10,7 @@ dependencies:
   - pandas
   - scipy
   - matplotlib
+  - pyarrow
   - pyyaml
   - jinja2
   - tqdm
@@ -20,3 +21,4 @@ dependencies:
       - "stable-baselines3[extra]"
       - optuna
       - rich
+      - verl
