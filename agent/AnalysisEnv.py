@@ -317,9 +317,9 @@ class AnalysisEnv(gym.Env):
         text = stdout + "\n" + stderr
         patterns = [
             r"SIGNIFICANCE\s*=\s*(-?\d+(?:\.\d+)?(?:e[+-]?\d+)?)",
-            r"Significance\s*[:=]\s*(-?\d+(?:\.\d+)?(?:e[+-]?\d+)?)",
-            r"Observed\s+significance\s*[:=]?\s*(-?\d+(?:\.\d+)?(?:e[+-]?\d+)?)",
-            r"obs(?:erved)?\s+significance\s*[:=]?\s*(-?\d+(?:\.\d+)?(?:e[+-]?\d+)?)",
+            r"Observed\s+significance(?:\s+mu\s*=\s*\S+)?(?:\s*\([^)]*\))?\s*[:=]\s*(-?\d+(?:\.\d+)?(?:e[+-]?\d+)?)",
+            r"obs(?:erved)?\s+significance(?:\s+mu\s*=\s*\S+)?(?:\s*\([^)]*\))?\s*[:=]\s*(-?\d+(?:\.\d+)?(?:e[+-]?\d+)?)",
+            r"Significance(?:\s+mu\s*=\s*\S+)?(?:\s*\([^)]*\))?\s*[:=]\s*(-?\d+(?:\.\d+)?(?:e[+-]?\d+)?)",
             r"Z0\s*[:=]\s*(-?\d+(?:\.\d+)?(?:e[+-]?\d+)?)",
         ]
 

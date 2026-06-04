@@ -215,9 +215,9 @@ def chunked(items: list[str], size: int) -> list[list[str]]:
 def parse_significance_from_text(text: str) -> float | None:
     patterns = [
         r"SIGNIFICANCE\s*=\s*(-?\d+(?:\.\d+)?(?:e[+-]?\d+)?)",
-        r"Significance\s*[:=]\s*(-?\d+(?:\.\d+)?(?:e[+-]?\d+)?)",
-        r"Observed\s+significance\s*[:=]?\s*(-?\d+(?:\.\d+)?(?:e[+-]?\d+)?)",
-        r"obs(?:erved)?\s+significance\s*[:=]?\s*(-?\d+(?:\.\d+)?(?:e[+-]?\d+)?)",
+        r"Observed\s+significance(?:\s+mu\s*=\s*\S+)?(?:\s*\([^)]*\))?\s*[:=]\s*(-?\d+(?:\.\d+)?(?:e[+-]?\d+)?)",
+        r"obs(?:erved)?\s+significance(?:\s+mu\s*=\s*\S+)?(?:\s*\([^)]*\))?\s*[:=]\s*(-?\d+(?:\.\d+)?(?:e[+-]?\d+)?)",
+        r"Significance(?:\s+mu\s*=\s*\S+)?(?:\s*\([^)]*\))?\s*[:=]\s*(-?\d+(?:\.\d+)?(?:e[+-]?\d+)?)",
         r"Z0\s*[:=]\s*(-?\d+(?:\.\d+)?(?:e[+-]?\d+)?)",
     ]
     for pattern in patterns:

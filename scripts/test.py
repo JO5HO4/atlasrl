@@ -29,7 +29,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--iterations",
-        default=3,
+        default=5,
         type=int,
         help="Number of sampled actions to apply after the baseline run.",
     )
@@ -46,7 +46,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--target-significance",
-        default=3.0,
+        default=1.5,
         type=float,
         help="Reward target used by AnalysisEnv.",
     )
@@ -60,6 +60,11 @@ def parse_args() -> argparse.Namespace:
         default=None,
         type=int,
         help="Optional random seed for action sampling.",
+    )
+    parser.add_argument(
+        "--stop-on-target",
+        action="store_true",
+        help="Stop the rollout when AnalysisEnv reports terminated.",
     )
     return parser.parse_args()
 
@@ -141,7 +146,7 @@ def main() -> None:
             f"best={float(info['best_significance']):.6f}"
         )
 
-        if terminated or truncated:
+        if truncated or (args.stop_on_target and terminated):
             break
 
     print(f"saved configs in: {last_info['episode_dir']}")
